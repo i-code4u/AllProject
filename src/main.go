@@ -17,8 +17,9 @@ func init() {
 func main() {
 	mux := httprouter.New()
 	mux.GET("/", index)
+	mux.GET("/login", login)
 	mux.POST("/login", login)
-	http.Handle("./public/", http.StripPrefix("./public", http.FileServer(http.Dir("./public")))) //??????
+	mux.ServeFiles("/public/*filepath", http.Dir("../public/"))
 	log.Fatal(http.ListenAndServe(":8080", mux))
 }
 func login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
@@ -29,7 +30,6 @@ func login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	}
 }
 func index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	//	http.Handle("./public/", http.StripPrefix("./public/", http.FileServer(http.Dir("./public/stylesheet"))))
 	r.ParseForm()
 	err := tpl.ExecuteTemplate(w, "index.html", 3)
 	if err != nil {

@@ -25,12 +25,12 @@ func main() {
 	mux.GET("/", index)
 	mux.GET("/login", login)
 	mux.POST("/login", login)
-	mux.POST("/passdata", passdata)
+	mux.POST("/signUp", signUp)
+	mux.POST("/signIn", signIn)
 	mux.ServeFiles("/public/*filepath", http.Dir("../public/"))
-	log.Fatal(http.ListenAndServe(":8082", mux))
+	log.Fatal(http.ListenAndServe(":8080", mux))
 }
 func login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	r.ParseForm()
 	err := tpl.ExecuteTemplate(w, "login.html", nil)
 	if err != nil {
 		fmt.Println("error in login")
@@ -44,7 +44,7 @@ func index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	}
 
 }
-func passdata(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+func signUp(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	r.ParseForm()
 	type newreg struct {
 		Name     string
@@ -72,4 +72,36 @@ func passdata(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	}
 	fmt.Println("Connection to MongoDB closed.")
 
+}
+func signIn(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	r.ParseForm()
+	type newreg struct {
+		Email    string
+		Password string
+	}
+	collection := client.Database("data").Collection("registration") // collection
+	dt1 := newreg{r.Form.Get("email"), r.Form.Get("password")}
+	///////////////
+	var result newreg
+	err := collection.FindOne(context.TODO(), dt1).Decode(&result)
+	fmt.Printf("Found a single document: %+v\n", result)
+	if result.Email == r.Form.Get("email") && result.Password == r.Form.Get("password") {
+		err = tpl.ExecuteTemplate(w, "passdata.html", nil)
+		if err != nil {
+			fmt.Println("error in index", err)
+		}
+		err = client.Disconnect(context.TODO())
+
+		if err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println("Connection to MongoDB closed.")
+
+	} else {
+		message := "Invalid email or Password!!!"
+		err = tpl.ExecuteTemplate(w, "login.html", message)
+		if err != nil {
+			fmt.Println("error in index", err)
+		}
+	}
 }

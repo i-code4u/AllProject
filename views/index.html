@@ -1,110 +1,68 @@
 <!DOCTYPE html>
-
+<html>
 <head>
-    <title>BrainyClan</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="../public/stylesheets/style.css">
-    <script>
-        function myFunction() {
-            var x;
-            x = document.getElementById("contact").value;
-            if (isNaN(x) || x.length != 10) {
-                alert("Contact is not valid");
-                return false;
-            }
-            if (document.getElementById('password').value !=
-                document.getElementById('cpassword').value) {
-                alert("password is not same");
-                return false;
-            }
-            var x = document.myform.email.value;
-            var atposition = x.indexOf("@");
-            var dotposition = x.lastIndexOf(".");
-            if (atposition < 1 || dotposition < atposition + 2 || dotposition + 2 >= x.length) {
-                alert("invalid Email");
-                return false;
-            } else return true;
-        }
-    </script>
+	<title>MaroMeet</title>
+	<link rel="stylesheet" type="text/css" href="../public/stylesheets/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
-<header>
-    <div id="header">
-        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-            <div id="hlogo"><a class="navbar-brand" href="#"><img id="logo" src="../public/images/logo.png" alt="logo"></a></div>
-            <div id="hmenu">
-                <ul class="navbar-nav text-align-right justify-content-end" id="ul1">
-                     <li class="nav-item text-right"><a class="nav-link" href="/login">Sign In</a></li> 
-                </ul>
-            </div>
-        </nav>
+<body>
+	<img class="wave" src="../public/images/wave.png">
+	<div class="container">
+		<div class="img">
+			<img src="../public/images/bg.svg">
+		</div>
+		<div class="login-content">
+			<form action="/signUp" method="post">
+				<img id="logo" src="../public/images/logo.png">
+				<h2 class="title"> Sign Up</h2>
+           		<div class="input-div one">
+           		   <div class="i">
+           		   		<i class="fas fa-user"></i>
+           		   </div>
+           		   <div class="div">
+           		   		<h5>Name</h5>
+           		   		<input type="text" name="name" class="input"required>
+           		   </div>
+           		</div>
+           		<div class="input-div pass">
+					<div class="i"> 
+						 <i class="fas fa-lock"></i>
+					</div>
+					<div class="div">
+						 <h5>Password</h5>
+						 <input type="password" name="password" class="input" required>
+				 </div>
+				 
+			  </div>
+			  <div class="input-div pass">
+				<div class="i"> 
+					 <i class="fas fa-phone"></i>
+				</div>
+				<div class="div">
+					 <h5>contact</h5>
+					 <input type="tel" id="phone" name="contact" name="phone"
+       pattern="[0-9]{10}"
+       required class="input">
+			 </div>
+			 
+		  </div>
+		  <div class="input-div pass">
+			<div class="i"> 
+				 <i class="fas fa-envelope"></i>
+			</div>
+			<div class="div">
+				 <h5>Email</h5>
+				 <input type="email" name="email" class="input" required>
+		 </div>
+		 
+	  </div>
+            	<a href="/login">Already have Account?</a>
+            	<input type="submit" class="btn" value="SignUp">
+            </form>
+        </div>
     </div>
-</header>
-<div id="register">
-    <table class="table table-responsive table-striped table-dark">
-        <tr>
-            <td text-align="center">
-                <center>
-                    <h1><span class="badge badge-secondary">Sign up here!!</span></h1>
-                </center>
-            </td>
-        </tr>
-        <form action="/passdata" method="post" onsubmit="return myFunction()" name="myform">
-            <tr>
-                <th>Name</th>
-                <td><input id="name" type="text" placeholder="enter your name" name="name" required=""></td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td><input id="password" type="password" placeholder="Password" name="password" required=""></td>
-            </tr>
-            <tr>
-                <th> Confirm Password</th>
-                <td><input id="cpassword" type="password" placeholder="Confirm Password" name="cpassword"></td>
-            </tr>
-            <tr>
-                <th> Email </th>
-                <td><input id="email" type="text" placeholder="abc@gmail.com" name="email" required=""></td>
-            </tr>
-            <tr>
-                <th> Contact </th>
-                <td><input id="contact" type="text" placeholder="*******999" name="contact" required=""></td>
-            </tr>
-            <td><input id="submit" type="submit" value="Register" name="txt6" required=""></td>
-            <td><a href="login.html">Already Registered!!</a></td>
-        </form>
-    </table>
-</div>
-<div id="images">
-    <div class="carousel slide" id="demo" data-ride="carousel">
-        <ul class="carousel-indicators">
-            <li class="active" data-target="#demo" data-slide-to="0"></li>
-            <li data-target="#demo" data-slide-to="1"></li>
-            <li data-target="#demo" data-slide-to="2"></li>
-        </ul>
-        <div class="carousel-inner">
-            <div class="carousel-item active"><img src="../public/images/meeting_3.jpg" alt="quiz" width="1100" height="500">
-                <div class="carousel-caption">
-                    <h3>Newton Room</h3>
-                    <p>Full of invetion</p>
-                </div>
-            </div>
-            <div class="carousel-item"><img src="../public/images/meeting_2.jpg" alt="c programming" width="1100" height="500">
-                <div class="carousel-caption">
-                    <h3>Edison Room</h3>
-                    <p>Glow your Knowlege</p>
-                </div>
-            </div>
-            <div class="carousel-item"><img src="../public/images/meeting1.jpeg" alt="New York" width="1100" height="500">
-                <div class="carousel-caption">
-                    <h3>Einstien Room</h3>
-                    <p>Beyond Thinking</p>
-                </div>
-            </div>
-        </div><a class="carousel-control-prev" href="#demo" data-slide="prev"><span class="carousel-control-prev-icon"></span></a><a class="carousel-control-next" href="#demo" data-slide="next"><span class="carousel-control-next-icon"></span></a></div>
-</div>
-<div id="footer"><img id="foo" src="../public/images/foo2.jpg" alt="logo"></div>
+    <script type="text/javascript" src="../public/script/main.js"></script>
+</body>
 </html>

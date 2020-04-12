@@ -1,84 +1,50 @@
 <!DOCTYPE html>
-
+<html>
 <head>
-    <title>Login here</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="../public/stylesheets/style.css">
+	<title>Login-MaroMeet</title>
+	<link rel="stylesheet" type="text/css" href="../public/stylesheets/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
-<header>
-    <div id="header">
-        <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-            <div id="hlogo"><a class="navbar-brand" href="#"><img id="logo" src="../public/images/logo.png" alt="logo"></a></div>
-            <div id="hmenu">
-                <ul class="navbar-nav text-align-right justify-content-end" id="ul1">
-                  
-                    <li class="nav-item"><a class="nav-link" href="/">Sign Up</a></li>
-                </ul>
-            </div>
-        </nav>
-    </div>
-</header>
-<div>
-    <div id="register">
-        <table class="table table-responsive table-striped table-dark">
-            <tr>
-                <td text-align="center">
-                    <center>
-                        <h1><span class="badge badge-secondary">Sign In here!!</span></h1>
-                    </center>
-                </td>
-            </tr>
-            <tr>
-                <td><small><p id="err"></p></small></td>
-            </tr>
-            <form action="/passdata" method="post">
-                <tr>
-                    <th> Email </th>
-                </tr>
-                <tr>
-                    <td><input id="txt4" type="text" placeholder="abc@gmail.com" name="email" required=""></td>
-                </tr>
-                <tr>
-                    <th>Password</th>
-                </tr>
-                <tr>
-                    <td><input id="txt1" type="password" placeholder="Password" name="password" required=""></td>
-                </tr>
-                <tr></tr>
-               <td> <input id="txt6" type="submit" value="Login" name="txt6"></td>
+<body>
+	<img class="wave" src="../public/images/wave.png">
+	<div class="container">
+		<div class="img">
+			<img src="../public/images/bg.svg">
+		</div>
+		<div class="login-content">
+			<form action="/signIN" method="POST">
+				<img id="logo" src="../public/images/logo.png">
+				<h2 class="title">Welcome</h2>
+				<h5 class="text-danger">{{.}}</h5>
+           		<div class="input-div one">
+           		   <div class="i">
+           		   		<i class="fas fa-envelop"></i>
+           		   </div>
+           		   <div class="div">
+           		   		<h5>Email</h5>
+           		   		<input type="Email" name="email" class="input" required>
+           		   </div>
+           		</div>
+           		<div class="input-div pass">
+           		   <div class="i"> 
+           		    	<i class="fas fa-password"></i>
+           		   </div>
+           		   <div class="div">
+           		    	<h5>Password</h5>
+           		    	<input type="password" name="password" class="input" required>
+            	   </div>
+                </div>
+               <td><a href="/">Signup Here!!</a></td></tr> </table>
+            	<input type="submit" class="btn" value="Login">
             </form>
-        </table>
+        </div>
     </div>
-    <div id="images">
-        <div class="carousel slide" id="demo" data-ride="carousel">
-            <ul class="carousel-indicators">
-                <li class="active" data-target="#demo" data-slide-to="0"></li>
-                <li data-target="#demo" data-slide-to="1"></li>
-                <li data-target="#demo" data-slide-to="2"></li>
-            </ul>
-            <div class="carousel-inner">
-                <div class="carousel-item active"><img src="../public/images/meeting_3.jpg" alt="quiz" width="1100" height="500">
-                    <div class="carousel-caption">
-                        <h3>Newton Room</h3>
-                        <p>Full of invetion!!</p>
-                    </div>
-                </div>
-                <div class="carousel-item"><img src="../public/images/meeting_2.jpg" alt="c programming" width="1100" height="500">
-                    <div class="carousel-caption">
-                        <h3>Edison Room</h3>
-                        <p>Full of invetion!!</p>
-                    </div>
-                </div>
-                <div class="carousel-item"><img src="../public/images/meeting1.jpeg" alt="New York" width="1100" height="500">
-                    <div class="carousel-caption">
-                        <h3>Einstien Room</h3>
-                        <p>Beyond Thinking!!</p>
-                    </div>
-                </div>
-            </div><a class="carousel-control-prev" href="#demo" data-slide="prev"><span class="carousel-control-prev-icon"></span></a><a class="carousel-control-next" href="#demo" data-slide="next"><span class="carousel-control-next-icon"></span></a></div>
-    </div>
-</div><img id="foo" src="../public/images/foo2.jpg" alt="logo">
+    <script type="text/javascript" src="../public/script/main.js"></script>
+</body>
+</html>

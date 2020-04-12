@@ -1,17 +1,67 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+	<title>Login-MaroMeet</title>
+	<link rel="stylesheet" type="text/css" href="../public/stylesheets/style.css">
+	<link href="https://fonts.googleapis.com/css?family=Poppins:600&display=swap" rel="stylesheet">
+	<script src="https://kit.fontawesome.com/a81368914c.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
 <body>
-    <h1>hello {{.Name}}</h1>
-    <table>
-        <tr><th>name</th><td>{{.Name}}</td></tr>
-        <tr><th>password</th><td>{{.Password}}</td></tr>
-        <tr><th>email</th><td>{{.Email}}</td></tr>
-        <tr><th>contact</th><td>{{.Contact}}</td></tr>
-    </table>
+    <div>
+    <table id="login"><tr>
+        <td> <h1 id="heading" > MaroMeet</h1></td>
+        <td id="login"> <a href="#"><h5  id="heading "class="i" >
+            <i class="fas fa-sign-out-alt" ></i> Logout</h5></td></a>
+    </tr>
+</table>
+</div>
+	<img class="wave" src="../public/images/wave.png">
+	<div class="container">
+		<div class="img">         
+            <img src="../public/images/interview.svg">
+        </div>
+		<div id ="room">
+            <div id="images">
+                <div class="carousel slide" id="demo" data-ride="carousel">
+                    <ul class="carousel-indicators">
+                        <li class="active" data-target="#demo" data-slide-to="0"></li>
+                        <li data-target="#demo" data-slide-to="1"></li>
+                        <li data-target="#demo" data-slide-to="2"></li>
+                    </ul>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <a href="#"><img src="../public/images/meeting_3.jpg" alt="quiz" width="1100" height="500"></a>
+                            
+                            <div class="carousel-caption">
+                                <h3>Newton Room</h3>
+                                <p>Full of invetion!!</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                         <a href="#">   <img src="../public/images/meeting_2.jpg" alt="c programming" width="1100" height="500"></a>
+                            <div class="carousel-caption">
+                                <h3>Edison Room</h3>
+                                <p>Full of invetion!!</p>
+                            </div>
+                        </div>
+                        <div class="carousel-item">
+                         <a href="#" > <img src="../public/images/meeting1.jpeg" alt="New York" width="1100" height="500"></a>
+                            <div class="carousel-caption">
+                                <h3>Einstien Room</h3>
+                                <p>Beyond Thinking!!</p>
+                            </div>
+                        </div>
+                    </div><a class="carousel-control-prev" href="#demo" data-slide="prev"><span class="carousel-control-prev-icon"></span></a><a class="carousel-control-next" href="#demo" data-slide="next"><span class="carousel-control-next-icon"></span></a></div>
+             
+             
+             
+        </div>
+    </div>
+    <script type="text/javascript" src="../public/script/main.js"></script>
 </body>
 </html>

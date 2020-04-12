@@ -25,6 +25,7 @@ func main() {
 	mux.GET("/", index)
 	mux.GET("/login", login)
 	mux.POST("/login", login)
+	mux.POST("/data", data)
 	mux.POST("/signUp", signUp)
 	mux.POST("/signIn", signIn)
 	mux.ServeFiles("/public/*filepath", http.Dir("../public/"))
@@ -78,6 +79,7 @@ func signIn(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	type newreg struct {
 		Email    string
 		Password string
+		//name     string
 	}
 	collection := client.Database("data").Collection("registration") // collection
 	dt1 := newreg{r.Form.Get("email"), r.Form.Get("password")}
@@ -90,12 +92,6 @@ func signIn(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		if err != nil {
 			fmt.Println("error in index", err)
 		}
-		err = client.Disconnect(context.TODO())
-
-		if err != nil {
-			log.Fatal(err)
-		}
-		fmt.Println("Connection to MongoDB closed.")
 
 	} else {
 		message := "Invalid email or Password!!!"
@@ -104,4 +100,21 @@ func signIn(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 			fmt.Println("error in index", err)
 		}
 	}
+}
+func data(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
+	r.ParseForm()
+	collection := client.Database("data").Collection("registration") // collection
+	dt1 := r.Form.Get("email")
+	///////////////
+	var result string
+	err := collection.FindOne(context.TODO(), dt1).Decode(&result)
+	if err != nil {
+		log.Fatal(err)
+	}
+	///////////////
+	err = tpl.ExecuteTemplate(w, "passdata.html", dt1)
+	if err != nil {
+		fmt.Println("error in index", err)
+	}
+
 }

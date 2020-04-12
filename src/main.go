@@ -1,14 +1,19 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"html/template"
 	"log"
 	"net/http"
 
 	"github.com/julienschmidt/httprouter"
+	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
+var clientOptions = options.Client().ApplyURI("mongodb://localhost:27017")
+var client, _ = mongo.Connect(context.TODO(), clientOptions)
 var tpl *template.Template
 
 func init() {
@@ -22,7 +27,7 @@ func main() {
 	mux.POST("/login", login)
 	mux.POST("/passdata", passdata)
 	mux.ServeFiles("/public/*filepath", http.Dir("../public/"))
-	log.Fatal(http.ListenAndServe(":8080", mux))
+	log.Fatal(http.ListenAndServe(":8082", mux))
 }
 func login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	r.ParseForm()
@@ -32,11 +37,12 @@ func login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	}
 }
 func index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	r.ParseForm()
+
 	err := tpl.ExecuteTemplate(w, "index.html", nil)
 	if err != nil {
 		fmt.Println("error in index")
 	}
+
 }
 func passdata(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	r.ParseForm()
@@ -46,9 +52,24 @@ func passdata(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		Password string
 		Contact  string
 	}
+	collection := client.Database("data").Collection("registration") // collection
 	dt1 := newreg{r.Form.Get("name"), r.Form.Get("email"), r.Form.Get("password"), r.Form.Get("contact")}
-	err := tpl.ExecuteTemplate(w, "passdata.html", dt1)
+	///////////////
+	insertResult, err := collection.InsertOne(context.TODO(), dt1)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Inserted a single document: ", insertResult.InsertedID)
+	///////////////
+	err = tpl.ExecuteTemplate(w, "passdata.html", dt1)
 	if err != nil {
 		fmt.Println("error in index", err)
 	}
+	err = client.Disconnect(context.TODO())
+
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("Connection to MongoDB closed.")
+
 }

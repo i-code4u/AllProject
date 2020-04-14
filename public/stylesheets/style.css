@@ -10,7 +10,7 @@
 	align-items: center;
 }
 #logo{
-	height: 50px;
+	height: 130px;
 	width: 270px;
   }
   #room{
@@ -18,7 +18,7 @@
 	padding-right : 500px;
   }
   .carousel-inner img {
-	width: 550px;
+	width: 500px;
 	height: 500px;
 	padding-bottom: 50px;
   }

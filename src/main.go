@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 	"html/template"
 	"log"
 	"net/http"
@@ -25,96 +24,8 @@ func main() {
 	mux.GET("/", index)
 	mux.GET("/login", login)
 	mux.POST("/login", login)
-	mux.POST("/data", data)
 	mux.POST("/signUp", signUp)
 	mux.POST("/signIn", signIn)
 	mux.ServeFiles("/public/*filepath", http.Dir("../public/"))
 	log.Fatal(http.ListenAndServe(":8080", mux))
-}
-func login(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	err := tpl.ExecuteTemplate(w, "login.html", nil)
-	if err != nil {
-		fmt.Println("error in login")
-	}
-}
-func index(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-
-	err := tpl.ExecuteTemplate(w, "index.html", nil)
-	if err != nil {
-		fmt.Println("error in index")
-	}
-
-}
-func signUp(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	r.ParseForm()
-	type newreg struct {
-		Name     string
-		Email    string
-		Password string
-		Contact  string
-	}
-	collection := client.Database("data").Collection("registration") // collection
-	dt1 := newreg{r.Form.Get("name"), r.Form.Get("email"), r.Form.Get("password"), r.Form.Get("contact")}
-	///////////////
-	insertResult, err := collection.InsertOne(context.TODO(), dt1)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("Inserted a single document: ", insertResult.InsertedID)
-	///////////////
-	err = tpl.ExecuteTemplate(w, "passdata.html", dt1)
-	if err != nil {
-		fmt.Println("error in index", err)
-	}
-	err = client.Disconnect(context.TODO())
-
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println("Connection to MongoDB closed.")
-
-}
-func signIn(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	r.ParseForm()
-	type newreg struct {
-		Email    string
-		Password string
-		//name     string
-	}
-	collection := client.Database("data").Collection("registration") // collection
-	dt1 := newreg{r.Form.Get("email"), r.Form.Get("password")}
-	///////////////
-	var result newreg
-	err := collection.FindOne(context.TODO(), dt1).Decode(&result)
-	fmt.Printf("Found a single document: %+v\n", result)
-	if result.Email == r.Form.Get("email") && result.Password == r.Form.Get("password") {
-		err = tpl.ExecuteTemplate(w, "passdata.html", nil)
-		if err != nil {
-			fmt.Println("error in index", err)
-		}
-
-	} else {
-		message := "Invalid email or Password!!!"
-		err = tpl.ExecuteTemplate(w, "login.html", message)
-		if err != nil {
-			fmt.Println("error in index", err)
-		}
-	}
-}
-func data(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
-	r.ParseForm()
-	collection := client.Database("data").Collection("registration") // collection
-	dt1 := r.Form.Get("email")
-	///////////////
-	var result string
-	err := collection.FindOne(context.TODO(), dt1).Decode(&result)
-	if err != nil {
-		log.Fatal(err)
-	}
-	///////////////
-	err = tpl.ExecuteTemplate(w, "passdata.html", dt1)
-	if err != nil {
-		fmt.Println("error in index", err)
-	}
-
 }

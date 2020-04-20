@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Table V02</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="../public/stylesheets/style.css">
+	<link rel="stylesheet" type="text/css" href="../public/stylesheets/room.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div>
+        <table id="login" ><tr>
+            <td> <h1 id="heading" > MaroMeet</h1></td>
+            <td id="login"> <a href="/login"><h5  id="heading "class="i" >
+                <i class="fas fa-sign-out-alt" ></i> Logout</h5></td></a>
+        </tr>
+    </table>
+    </div>
+	<div class="limiter">
+		<div class="container-table100">
+			<div class="wrap-table100">
+					<div class="table">
+
+						<div class="row header">
+							<div class="cell">
+								Representative
+							</div>
+							<div class="cell">
+								Date
+							</div>
+							
+							<div class="cell">
+								 Start At
+							</div>
+							<div class="cell">
+								End Time
+							</div>
+							<div class="cell">
+								Attendee 
+							</div>
+							<div class="cell">
+								status
+							</div>
+						</div>
+
+						{{range .}}
+						<div class="row">
+							<div class="cell" data-title="Organiser">
+								{{.Organiser}}
+							</div>
+							<div class="cell" data-title="Date">
+								{{.Date}}
+							</div>
+							<div class="cell" data-title="Start At">
+								{{.Start_time}}
+							</div>
+							<div class="cell" data-title="End At">
+								{{.End_time}}
+							</div>
+							<div class="cell" data-title="Attendee">
+								{{.Count}}
+							</div>
+							<div class="cell" data-title="Status">
+								{{.Status}}
+							</div>
+						</div>
+						{{end}}
+						<table>
+							<tr>
+						<td>	<a class="btn btn-primary" href="/AddMeeting" role="button">Add meeting</td></a>
+						<td>	<a class="btn btn-primary" href="AddMeeting.html" role="button">Cancel meeting</td></a>
+							</tr>
+						</table>
+						
+					</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+</html>

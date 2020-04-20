@@ -48,7 +48,7 @@ func signUp(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 		}
 		fmt.Println("Inserted a single document: ", insertResult.InsertedID)
 
-		err = tpl.ExecuteTemplate(w, "maro_room.html", dt1)
+		err = tpl.ExecuteTemplate(w, "select_room.html", dt1)
 		if err != nil {
 			fmt.Println("error in index", err)
 		}

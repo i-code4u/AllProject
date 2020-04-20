@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <title>hello</title>	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+</head>
+<style>
+    #login{
+	display: block;
+	text-align: right;
+	float: right;
+	font-size: 1.2rem;
+	color:#38d39f;
+	font-family: 'poppins', sans-serif;
+	padding-left: 1000px;
+	padding: 600;
+}
+      #timepicker:before {
+    content:'24hrs:';
+    margin-right:.6em;
+    color:#9d9d9d;
+    
+  }
+  div.form
+{
+    display: block;
+    text-align: center;
+}
+form
+{
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+#txtdata { position: relative; z-index: 1000; }
+.wave{
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	height: 100%;
+	z-index: -1;
+}
+</style>
+
+
+
+<body>
+        <table id="login" ><tr>
+            <td> <h1 id="head" > MaroMeet</h1></td>
+            <td id="login"> <a href="/login"><h5  id="heading "class="i" >
+                <i class="fas fa-sign-out-alt" ></i> Logout</h5></td></a>
+        </tr>
+    </table>
+    <img class="wave" src="../../../public/images/wave.png">
+    <div class="form">
+    <form action="/addedMeetingrm1" method="post" onsubmit="return validate()">
+        <table>
+            <tr>
+                <td><p id ="error"></p></td>
+            </tr>
+            <tr>
+                <th><span class="label label-default">No. Of Attendee</span></th>
+                <td><input type="text" name="Attendee" id="Attendee" value="1" readonly></td>
+            </tr>
+            <tr>
+       <th>Organiser</th>
+        <td><input type="text" name="Organiser" required autocomplete=“off></td></tr></br>
+        <tr>
+        <th> Date :</th>
+        <td><input id="txtdate" type="text" name="Date" value="" onchange="nextdate()" autocomplete=“off required></td></tr></br>
+       
+       <tr>  <th>Starting Time:</th>
+        <td>  <input type="time" id="timepicker" name="Start_time"  min="9:00" max="18:00" value="14:00" required></td></tr></br>
+        <tr>  <th>Ending Time:</th>
+            <td>  <input type="time" id="Endpicker" name="End_time" min="9:00" max="18:00" value="14:00" required></td></tr></br>
+          </table>
+         <div id="tr">
+              <label id="emailid">Attendee1 EmailId:</label> </br>
+             <input type="email" name="Attendee_email_1" required><input type="button" onclick=add() value="Add Member" required></div>
+         </br></br>
+         
+         <textarea rows="4" cols="50"  form="usrform" name="User_form" required placeholder="Enter Meeting Description here...!!"></textarea>
+         <input type="hidden" name="Status" value="Pending">
+         <input type="submit"  value="Add Meeting">
+         </form>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+ <script type="text/javascript" >
+         $(document).ready(function () {
+          $("#txtdate").datepicker({
+        
+              beforeShowDay: $.datepicker.noWeekends,
+                 minDate: 0,
+                    maxDate: 21
+                  });
+        });
+        //////////////////////////
+    function validate()
+    {
+       t1= document.getElementById("timepicker").value
+       t2= document.getElementById("Endpicker").value
+       th1=t1.slice(0,2)
+       th2=t2.slice(0,2)
+       t1=t1.slice(3,5)
+       t2=t2.slice(3,5)
+       if (th1>th2  ){
+       return false}
+       else if (th1>th2 && t1 > t2 ){
+           alert("check your Meeting time Please!!!!!!")
+           return false
+       }
+       else if(th1 == th2 && t1> t2){
+        alert("check your Meeting time Please!!!!!!!")
+           return false
+       }
+       else if (th1 == th2 && t1== t2){
+        alert("check your Meeting time Please!!!!!!!")
+           return false
+       }
+       else return true
+    }
+/////////////////////////////////////
+window.onload=function fn(){         
+var hours = new Date();
+hours=hours.getHours()
+var minutes = new Date();
+minutes=minutes.getMinutes()
+if (hours <10) {
+   hours=hours.toString()
+   hours="0"+hours
+}
+if (minutes <10) {
+    minutes=minutes.toString()
+    minutes="0"+minutes
+ }
+time= hours+":"+minutes
+ 
+date = new Date()
+date=date.getDate()
+selecteddate = document.getElementById("txtdate").value
+this.console.log("value"+selecteddate)
+document.getElementById("timepicker").setAttribute("value", time);
+document.getElementById("timepicker").setAttribute("min", time);
+document.getElementById("timepicker").setAttribute("max", "19:00");
+minutes =new Date()
+z=minutes.getMinutes()+30
+hours=minutes.getHours()
+console.log(z)
+if(z>59){
+    hours = parseInt(hours)
+    console.log(hours)
+    hours=  hours+ 1
+    hours=hours.toString()
+   }
+   if (hours==24){
+    hours = parseInt(hours)
+    hours=0
+    hours=hours.toString()
+   }
+   if (hours <10) {
+       console.log("sdfghjhgf")
+   hours=hours.toString()
+   hours="0"+hours
+}
+minutes.setMinutes(z)
+x=minutes.getMinutes()
+console.log(x)
+
+if (x <10) {
+    x=x.toString()
+    x="0"+x
+ }
+
+
+time= hours +":"+x
+document.getElementById("Endpicker").setAttribute("value", time);
+document.getElementById("Endpicker").setAttribute("min", time);
+document.getElementById("Endpicker").setAttribute("max", "19:00");
+console.log("time1===",typeof(time))
+}
+/////////////////////////////////////////////////////
+function backToCurrentDate(){         
+var hours = new Date();
+hours=hours.getHours()
+var minutes = new Date();
+minutes=minutes.getMinutes()
+if (hours <10) {
+   hours=hours.toString()
+   hours="0"+hours
+}
+if (minutes <10) {
+    minutes=minutes.toString()
+    minutes="0"+minutes
+ }
+time= hours+":"+minutes
+ 
+date = new Date()
+date=date.getDate()
+selecteddate = document.getElementById("txtdate").value
+this.console.log("value"+selecteddate)
+document.getElementById("timepicker").setAttribute("value", time);
+document.getElementById("timepicker").setAttribute("min", time);
+document.getElementById("timepicker").setAttribute("max", "19:00");
+minutes =new Date()
+z=minutes.getMinutes()+30
+hours=minutes.getHours()
+console.log(z)
+if(z>59){
+    hours = parseInt(hours)
+    console.log(hours)
+    hours=  hours+ 1
+    hours=hours.toString()
+   }
+   if (hours==24){
+    hours = parseInt(hours)
+    hours=0
+    hours=hours.toString()
+   }
+   if (hours <10) {
+       console.log("sdfghjhgf")
+   hours=hours.toString()
+   hours="0"+hours
+}
+minutes.setMinutes(z)
+x=minutes.getMinutes()
+console.log(x)
+
+if (x <10) {
+    x=x.toString()
+    x="0"+x
+ }
+
+
+time= hours +":"+x
+document.getElementById("Endpicker").setAttribute("value", time);
+document.getElementById("Endpicker").setAttribute("min", time);
+document.getElementById("Endpicker").setAttribute("max", "19:00");
+console.log("time===",time)
+}
+var i=2
+///////////////////////////////////////////////////////
+function add(){   
+var txtNewlableBox = document.createElement('div');
+txtNewlableBox.innerHTML = "<label>Attendee"+i+" "+"EmailId</label>";
+document.getElementById("tr").appendChild(txtNewlableBox);
+var txtNewInputBox = document.createElement('div');
+txtNewInputBox.innerHTML = "<input type='email' id='newInputBox' name='Attendee_email_"+i+"'required>";
+document.getElementById("tr").appendChild(txtNewInputBox);
+document.getElementById("Attendee").setAttribute("value", i);
+i++
+}
+//////////////////////////////////////////////////////////////
+function nextdate(){
+    selecteddate = document.getElementById("txtdate").value
+    d1 = selecteddate[3].toString()
+    d2 = selecteddate[4].toString()
+    d= d1+d2
+    d= parseInt(d)
+
+    date = new Date()
+    date=date.getDate()
+    console.log(date)
+    if(d>date){
+        document.getElementById("timepicker").setAttribute("min", "09:00");
+        document.getElementById("timepicker").setAttribute("value", "09:00");
+        document.getElementById("timepicker").setAttribute("max", "19:00");
+    }else{
+        backToCurrentDate()
+    }
+    console.log("value in fn"+d)
+    console.log(typeof(d))
+    end()
+}
+///////////////////////////////////////////////////////////////////
+function end(){
+    selecteddate = document.getElementById("txtdate").value
+    d1 = selecteddate[3].toString()
+    d2 = selecteddate[4].toString()
+    d= d1+d2
+    d= parseInt(d)
+    date1 = new Date()
+    date1=date1.getDate()
+    console.log(date1)
+    if(d>date){
+        document.getElementById("Endpicker").setAttribute("min", "09:30");
+        document.getElementById("Endpicker").setAttribute("value", "09:30");
+        document.getElementById("Endpicker").setAttribute("max", "19:00");
+    }
+    console.log("value in fn"+d)
+    console.log(typeof(d))
+}
+        </script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</body>
+</html>

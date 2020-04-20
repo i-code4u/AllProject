@@ -29,7 +29,7 @@ func signIn(w http.ResponseWriter, r *http.Request, _ httprouter.Params) {
 	err := collection.FindOne(context.TODO(), dt1).Decode(&result)
 	fmt.Printf("Found a single document: %+v\n", result)
 	if result.Email == r.Form.Get("email") && result.Password == r.Form.Get("password") {
-		err = tpl.ExecuteTemplate(w, "passdata.html", nil)
+		err = tpl.ExecuteTemplate(w, "select_room.html", nil)
 		if err != nil {
 			fmt.Println("error in index", err)
 		}
